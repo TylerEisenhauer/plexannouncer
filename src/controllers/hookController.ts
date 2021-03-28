@@ -7,6 +7,7 @@ interface MulterRequest extends express.Request {
 }
 
 const handlePlexWebhook = async (req: MulterRequest, res: express.Response) => {
+    if (!req.body.payload) return res.sendStatus(204)
     const plexEvent: PlexEvent = JSON.parse(req.body.payload)
 
     if (plexEvent.event !== 'library.new' || plexEvent.Metadata.type === 'track') {
