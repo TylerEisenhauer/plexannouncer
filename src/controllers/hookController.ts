@@ -34,6 +34,7 @@ const handlePlexWebhook = async (req: MulterRequest, res: express.Response) => {
         .setColor('#E5A00D')
         .setAuthor(embedAuthor)
         .setTitle(embedTitle)
+        .setURL('https://app.plex.tv/')
         .attachFiles([attachment])
         .setThumbnail('attachment://img.jpeg')
         .setDescription(plexEvent.Metadata.summary ? plexEvent.Metadata.summary : 'Summary not available')
