@@ -15,14 +15,11 @@ const handlePlexWebhook = async (req: MulterRequest, res: express.Response) => {
     }
 
     const embedTitle: string =
-        plexEvent.Metadata.type === 'movie' ?
-        `${plexEvent.Metadata.title}` :
-        `${plexEvent.Metadata.grandparentTitle}, ${plexEvent.Metadata.parentTitle}: ${plexEvent.Metadata.title}`
+        plexEvent.Metadata.type === 'episode' ?
+            `${plexEvent.Metadata.grandparentTitle}, ${plexEvent.Metadata.parentTitle}: ${plexEvent.Metadata.title}` :
+            `${plexEvent.Metadata.title}`
 
-    const embedAuthor: string =
-        plexEvent.Metadata.type === 'movie' ?
-            `Movie Added` :
-            `Episode Added`
+    const embedAuthor: string = `${plexEvent.Metadata.type.charAt(0).toUpperCase()}${plexEvent.Metadata.type.slice(1)} Added`
 
     let attachment: MessageAttachment
     if (req.file && req.file.buffer) {
