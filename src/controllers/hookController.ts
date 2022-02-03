@@ -14,6 +14,8 @@ const handlePlexWebhook = async (req: MulterRequest, res: express.Response): Pro
         return res.sendStatus(204)
     }
 
+    console.log(`Processing Event\nType: ${plexEvent.Metadata.type}`)
+
     const embedTitle: string = buildEmbedTitle(plexEvent)
 
     const embedAuthor: string = `${plexEvent.Metadata.type.charAt(0).toUpperCase()}${plexEvent.Metadata.type.slice(1)} Added`
@@ -27,14 +29,21 @@ const handlePlexWebhook = async (req: MulterRequest, res: express.Response): Pro
 
     const embed: MessageEmbed = new MessageEmbed()
         .setColor('#E5A00D')
-        .setAuthor(embedAuthor)
+        .setAuthor({
+            name: embedAuthor
+        })
         .setTitle(embedTitle)
         .setURL('https://app.plex.tv/')
-        .attachFiles([attachment])
         .setThumbnail('attachment://img.jpeg')
         .setDescription(plexEvent.Metadata.summary ? plexEvent.Metadata.summary : 'Summary not available')
 
-    await new WebhookClient(process.env.WEBHOOK_ID, process.env.WEBHOOK_TOKEN).send(embed)
+    await new WebhookClient({
+        id: process.env.WEBHOOK_ID, 
+        token: process.env.WEBHOOK_TOKEN
+    })
+    .send({
+        embeds: [embed], files: [attachment]
+    })
 
     return res.sendStatus(202)
 }
