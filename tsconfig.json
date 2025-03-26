@@ -1,11 +1,17 @@
 {
   "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
     "esModuleInterop": true,
-    "module": "commonjs",
-    "target": "es6",
-    "sourceMap": true
+    "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
+    "module": "NodeNext",
+    "target": "es2022",
+    "moduleResolution": "nodenext",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "strict": false
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "include": [
+    "src/**/*.ts"
+  ],
 }
