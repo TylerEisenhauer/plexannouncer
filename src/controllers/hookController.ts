@@ -1,6 +1,6 @@
-import { AttachmentBuilder, EmbedBuilder, WebhookClient } from 'discord.js';
-import express from 'express';
-import { PlexEvent } from '../types/plexEvent.js';
+import { AttachmentBuilder, EmbedBuilder, WebhookClient } from 'discord.js'
+import express from 'express'
+import { PlexEvent } from '../types/plexEvent.js'
 
 interface MulterRequest extends express.Request {
   file: any;
